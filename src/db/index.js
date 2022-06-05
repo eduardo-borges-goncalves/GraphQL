@@ -59,7 +59,7 @@ module.exports = {
     },
     {
       id: 2,
-      name: "Wash Machine",
+      name: "Washing machine",
       value: 1899.00
     },
     {

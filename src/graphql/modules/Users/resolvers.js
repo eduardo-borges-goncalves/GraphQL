@@ -1,4 +1,4 @@
-import { UserProps } from "../../../types/UserProps"
+// import { UserProps } from "../../../types/UserProps"
 const db = require("../../../db")
 
 module.exports = {
