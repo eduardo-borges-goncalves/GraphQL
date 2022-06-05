@@ -1,67 +1,5 @@
 const { gql, ApolloServer } = require("apollo-server")
-
-type UserProps = {
-  id: number, 
-  age: number, 
-  salary: number, 
-  name: string,
-  active: boolean, 
-  house_phone: string
-}
-
-const users = [
-  {
-    id: 1,
-    age: 19, 
-    name: "Paulo", 
-    salary: 2500,
-    active: true, 
-    house_phone: "62338695428"
-  },
-  {
-    id: 2,
-    age: 19, 
-    name: "Pedro", 
-    salary: 2500,
-    active: true, 
-    house_phone: "62338695428"
-  },
-  {
-    id: 3,
-    age: 19, 
-    name: "Paulo", 
-    salary: 2500,
-    active: true, 
-    house_phone: "62338695428"
-  },
-  {
-    id: 4,
-    age: 19, 
-    name: "Paulo", 
-    salary: 2500,
-    active: true, 
-    house_phone: "62338695428"
-  },
-  {
-    id: 5,
-    age: 19, 
-    name: "Paulo", 
-    salary: 2500,
-    active: true, 
-    house_phone: "62338695428"
-  },
-]
-
-const profiles = [
-  {
-    id: 1, 
-    description: "lorem ipsum lorem ipsum"
-  },
-  {
-    id: 2, 
-    description: "lorem ipsum lorem ipsum ipsum taneba"
-  },
-]
+const db = require("./src/db")
 
 const typeDefs = gql`
   type Product {
@@ -95,42 +33,25 @@ const typeDefs = gql`
 
 const resolvers =  {
   User: {
-    phone (obj: UserProps) {
+    phone (obj) {
       return obj.house_phone
     },
-    profile (user: UserProps, arg: UserProps) {
-      return profiles.find(profile => profile.id === user.id)
+    profile (user) {
+      return db.profiles.find((profile) => profile.id === user.id)
     }
   }, 
   Query: {
-    user (_: UserProps, arg: UserProps) {
-      return users.find(user => user.id === arg.id)
+    user (_, arg) {
+      return db.users.find((user) => user.id === arg.id)
     }, 
     users () {
-      return users
+      return db.users
     }, 
     products () {
-      const products = [
-        {
-          id: 1,
-          name: "Secador de Cabelo",
-          value: 189.00
-        },
-        {
-          id: 2,
-          name: "Wash Machine",
-          value: 1899.00
-        },
-        {
-          id: 3,
-          name: "Cooktop",
-          value: 289.00
-        },
-      ]
-      return products  
+      return db.products  
     }, 
     profiles () {
-      return profiles
+      return db.profiles
     }
   }
 }
@@ -259,7 +180,7 @@ server.listen()
   // the data profile will be returned. 
   // The second, agree us skip or jump some content, wich cause maybe the same result than @include. 
   // - phone @skip(if: $jump)
-  
+
 
 
 

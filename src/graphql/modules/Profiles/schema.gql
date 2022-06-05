@@ -1,0 +1,8 @@
+type Profile {
+  id: ID
+  description: String
+}
+
+type Query {
+  profiles: [Profile]
+}
